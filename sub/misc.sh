@@ -16,9 +16,5 @@ for disk in vd? ; do
   echo noop > /sys/block/\$disk/queue/scheduler
 done
 
-/usr/local/sbin/ddns-update
+/etc/cron.hourly/ddns
 EOF
-
-# cron
-
-echo '0 * * * * /usr/local/sbin/ddns-update' | crontab -u ubuntu -
