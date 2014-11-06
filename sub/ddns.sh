@@ -22,3 +22,5 @@ hostname --file /etc/hostname
 EOF
 
 chmod 755 $ddns/ddns-update
+
+$ddns/ddns-update
