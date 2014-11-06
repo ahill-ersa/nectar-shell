@@ -1,8 +1,10 @@
 #!/bin/sh -e
 
-curl --silent --location URL_TO_BE_DECIDED | tar xzvf -
+version=v0.2
 
-cd nectar-shell
+curl --silent --location https://github.com/eResearchSA/nectar-shell/archive/$version.tar.gz | tar xzvf -
+
+cd nectar-shell-$version
 
 ./setup.sh
 
