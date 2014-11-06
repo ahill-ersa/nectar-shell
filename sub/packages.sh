@@ -3,8 +3,8 @@
 # mirrors
 
 cat > /etc/apt/sources.list << EOF
-deb http://mirror.aarnet.edu.au/ubuntu/ trusty main universe
-deb http://mirror.aarnet.edu.au/ubuntu/ trusty-updates main universe
+deb http://mirrors.rc.nectar.org.au/ubuntu/ trusty main universe
+deb http://mirrors.rc.nectar.org.au/ubuntu/ trusty-updates main universe
 
 deb http://security.ubuntu.com/ubuntu trusty-security main universe
 EOF
