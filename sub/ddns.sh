@@ -9,6 +9,7 @@ hostname=`curl --silent http://169.254.169.254/latest/meta-data/hostname | cut -
 
 ddns=/usr/local/sbin
 mkdir -p $ddns
+
 cat > $ddns/ddns-update << EOF
 #!/bin/bash
 
@@ -19,3 +20,5 @@ curl --silent -X POST -d "" \
 echo $hostname.$DDNS_DOMAIN > /etc/hostname
 hostname --file /etc/hostname
 EOF
+
+chmod 755 $ddns/ddns-update
