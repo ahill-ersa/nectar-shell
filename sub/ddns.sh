@@ -12,7 +12,7 @@ ddns=/etc/cron.hourly/ddns
 cat > $ddns << EOF
 #!/bin/sh
 
-curl --silent -X POST -d "" --header "x-dns-username: $DDNS_USERNAME" --header "x-dns-token: $DDNS_TOKEN" https://ersa-dynamic-dns.appspot.com/v1/host/$DDNS_DOMAIN/$hostname > /dev/null 2>&1
+curl --silent -4 -X POST -d "" --header "x-dns-username: $DDNS_USERNAME" --header "x-dns-token: $DDNS_TOKEN" https://ersa-dynamic-dns.appspot.com/v1/host/$DDNS_DOMAIN/$hostname > /dev/null 2>&1
 
 echo $hostname.$DDNS_DOMAIN > /etc/hostname
 hostname --file /etc/hostname
