@@ -1,5 +1,9 @@
 #!/bin/sh -e
 
+# apt
+
+echo force-unsafe-io > /etc/dpkg/dpkg.cfg.d/02apt-speedup
+
 # mirrors
 
 cat > /etc/apt/sources.list << EOF
