@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
 if [ -z "$DDNS_USERNAME" -o -z "$DDNS_TOKEN" -o -z "$DDNS_DOMAIN" ] ; then
-  echo required: DDNS_USERNAME DDNS_TOKEN DDNS_DOMAIN
-  exit 1
+  echo "required environment: DDNS_USERNAME DDNS_TOKEN DDNS_DOMAIN; skipping dynamic dns"
+  exit 0
 fi
 
 hostname=`curl --silent http://169.254.169.254/latest/meta-data/hostname | cut -f1 -d.`
