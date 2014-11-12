@@ -13,16 +13,11 @@ deb http://mirrors.rc.nectar.org.au/ubuntu/ trusty-updates main universe
 deb http://security.ubuntu.com/ubuntu trusty-security main universe
 EOF
 
-# java
-
-echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-add-apt-repository -y ppa:webupd8team/java
-
 # misc
 
 apt-get update
 apt-get -y dist-upgrade
-apt-get -y install build-essential clang git ifstat language-pack-en lftp libssl-dev libxml2-dev libxslt1-dev lzop mosh ntp oracle-java8-installer parallel pigz pixz pv python-dev python-pip socat software-properties-common stow supervisor sysstat tcsh traceroute unzip zip zsh
+apt-get -y install build-essential clang git ifstat language-pack-en lftp libssl-dev libxml2-dev libxslt1-dev lzop mosh ntp parallel pigz pixz pv python-dev python-pip socat software-properties-common supervisor sysstat tcsh traceroute unzip zip zsh
 
 # python
 
