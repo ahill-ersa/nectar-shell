@@ -1,10 +1,11 @@
 #!/bin/sh
 
-version=0.2.9
+#version=master
+version=v0.2.9
 
-curl --silent --location https://github.com/eResearchSA/nectar-shell/archive/v$version.tar.gz | tar xzvf -
+curl --silent --location https://github.com/eResearchSA/nectar-shell/archive/$version.tar.gz | tar xzvf -
 
-cd nectar-shell-$version
+cd nectar-shell-*
 
 ./setup.sh
 
