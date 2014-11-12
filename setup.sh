@@ -2,7 +2,7 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
-for sub in packages ddns misc ; do
+for sub in packages ddns misc slack ; do
     echo -- $sub --
     sub/$sub.sh
 done

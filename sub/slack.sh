@@ -15,6 +15,8 @@ EOF
 
 chmod 755 $slack
 
+$slack 'initialising '`hostname` || true
+
 slackinit=/etc/init.d/slack
 
 cat > $slackinit << EOF
