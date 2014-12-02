@@ -6,11 +6,13 @@ echo force-unsafe-io > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 
 # mirrors
 
-cat > /etc/apt/sources.list << EOF
-deb http://mirrors.rc.nectar.org.au/ubuntu/ trusty main universe
-deb http://mirrors.rc.nectar.org.au/ubuntu/ trusty-updates main universe
+ubuntu=utopic
 
-deb http://security.ubuntu.com/ubuntu trusty-security main universe
+cat > /etc/apt/sources.list << EOF
+deb http://mirror.aarnet.edu.au/ubuntu/ $ubuntu main universe
+deb http://mirror.aarnet.edu.au/ubuntu/ $ubuntu-updates main universe
+
+deb http://security.ubuntu.com/ubuntu $ubuntu-security main universe
 EOF
 
 # misc
