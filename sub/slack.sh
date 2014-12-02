@@ -8,9 +8,13 @@ fi
 slack=/usr/local/bin/slack
 
 cat > $slack << EOF
-#!/bin/sh
+#!/usr/bin/env python
 
-curl -X POST -d payload='{ "text" : "\$@" }' $SLACK_WEBHOOK
+import json, sys, requests
+
+payload = { "text" : sys.stdin.read().strip() }
+
+requests.post("$SLACK_WEBHOOK", data = json.dumps(payload))
 EOF
 
 chmod 755 $slack
