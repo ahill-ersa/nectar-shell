@@ -8,6 +8,6 @@ export SLACK_WEBHOOK=
 
 export JAVA_URL=
 
-version=v0.2.10
+version=v0.2.11
 
 curl --silent --location https://github.com/eResearchSA/nectar-shell/raw/$version/run.sh | sh

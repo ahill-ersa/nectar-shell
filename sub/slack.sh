@@ -19,14 +19,14 @@ EOF
 
 chmod 755 $slack
 
-$slack 'initialising '`hostname` || true
+echo initialising `hostname` | $slack
 
 slackinit=/etc/init.d/slack
 
 cat > $slackinit << EOF
 #!/bin/sh
 
-$slack entering run-level \$RUNLEVEL: `hostname`
+echo entering run-level \$RUNLEVEL: `hostname` | $slack
 EOF
 
 chmod 755 $slackinit

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-version=v0.2.10
+version=v0.2.11
 
 curl --silent --location https://github.com/eResearchSA/nectar-shell/archive/$version.tar.gz | tar xzvf -
 
