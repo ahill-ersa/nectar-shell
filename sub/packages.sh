@@ -17,11 +17,42 @@ EOF
 
 # misc
 
+packages="
+aria2
+build-essential
+clang
+git
+ifstat
+language-pack-en
+lftp
+libssl-dev
+libxml2-dev
+libxslt1-dev
+lzop
+mosh
+ntp
+parallel
+pigz
+pixz
+pv
+python-dev
+python-pip
+socat
+software-properties-common
+supervisor
+sysstat
+tcsh
+traceroute
+unzip
+zip
+zsh
+"
+
 apt-get update
 apt-get -y dist-upgrade
-apt-get -y install build-essential clang git ifstat language-pack-en lftp libssl-dev libxml2-dev libxslt1-dev lzop mosh ntp parallel pigz pixz pv python-dev python-pip socat software-properties-common supervisor sysstat tcsh traceroute unzip zip zsh
+apt-get -y install $packages
 
-# python
+# openstack
 
 pip install --upgrade python-novaclient python-keystoneclient python-glanceclient python-swiftclient
 
