@@ -10,4 +10,4 @@ export JAVA_URL=
 
 version=master
 
-curl --silent --location https://github.com/eResearchSA/nectar-shell/raw/$version/run.sh | sh
+curl --silent --location https://github.com/modc08/nectar-shell/raw/$version/run.sh | sh
