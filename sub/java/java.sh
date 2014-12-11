@@ -9,6 +9,7 @@ aria2c -o javatmp.$$ --file-allocation=falloc -x 4 $JAVA_URL
 tar xf javatmp.$$ -C /usr/local
 rm -f javatmp.$$
 
-for executable in `ls -1 /usr/local/java*/bin` ; do
-  update-alternatives --install /usr/bin/$executable $executable /usr/local/java*/bin/$executable 10
+for executable in /usr/local/java*/bin/* ; do
+    execname=`basename $executable`
+    update-alternatives --install /usr/bin/$execname $execname $executable 10
 done

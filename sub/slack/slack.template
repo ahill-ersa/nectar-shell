@@ -1,0 +1,7 @@
+#!/usr/bin/env python
+
+import json, sys, requests
+
+payload = { "text" : sys.stdin.read().strip() }
+
+requests.post("SLACK_WEBHOOK", data = json.dumps(payload))

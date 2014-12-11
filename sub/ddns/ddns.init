@@ -1,0 +1,24 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: ddns
+# Required-Start: $local_fs
+# Required-Stop: $local_fs
+# Default-Start: 2 3 4 5
+# Default-Stop:
+# Short-Description: ddns
+# Description: ddns
+#
+### END INIT INFO
+
+case "$1" in
+    start)
+    /etc/cron.hourly/ddns
+    ;;
+    status)
+    exit 0
+    ;;
+    *)
+    echo "Usage: ddns {start|status}"
+    exit 3
+    ;;
+esac

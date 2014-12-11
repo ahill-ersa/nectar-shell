@@ -1,0 +1,27 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: iosched
+# Required-Start: $local_fs
+# Required-Stop: $local_fs
+# Default-Start: 2 3 4 5
+# Default-Stop:
+# Short-Description: iosched
+# Description: iosched
+#
+### END INIT INFO
+
+case "$1" in
+    start)
+    cd /dev
+    for disk in vd? ; do
+        echo noop > /sys/block/$disk/queue/scheduler
+    done
+    ;;
+    status)
+    exit 0
+    ;;
+    *)
+    echo "Usage: iosched {start|status}"
+    exit 3
+    ;;
+esac

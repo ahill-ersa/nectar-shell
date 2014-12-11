@@ -1,0 +1,29 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: slack
+# Required-Start: $local_fs
+# Required-Stop: $local_fs
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: slack
+# Description: slack notification
+#
+### END INIT INFO
+
+export PATH=/usr/local/bin:$PATH
+
+case "$1" in
+    start)
+    echo ":arrow_up: `hostname`" | slack
+    ;;
+    stop)
+    echo ":arrow_down: `hostname`" | slack
+    ;;
+    status)
+    exit 0
+    ;;
+    *)
+    echo "Usage: slack {start|stop|status}"
+    exit 3
+    ;;
+esac
