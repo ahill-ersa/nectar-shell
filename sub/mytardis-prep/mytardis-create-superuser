@@ -1,0 +1,34 @@
+#!/usr/bin/expect -f
+
+set force_conservative 1
+if {$force_conservative} {
+    set send_slow {1 .1}
+    proc send {ignore arg} {
+        sleep .1
+        exp_send -s -- $arg
+    }
+}
+
+if { $argc != 2 } {
+    puts "args: username password"
+    exit 1
+}
+
+set username [lindex $argv 0];
+set password [lindex $argv 1];
+
+set timeout -1
+spawn $env(SHELL)
+match_max 100000
+send -- "bin/django createsuperuser\r"
+expect "Username"
+send -- "$username\r"
+expect "E-mail address"
+send -- "$username@modc08.ersa.edu.au\r"
+expect "Password"
+send -- "$password\r"
+expect "Password (again)"
+send -- "$password\r"
+expect "MyTardis superuser created successfully"
+send -- "exit\r"
+expect eof
