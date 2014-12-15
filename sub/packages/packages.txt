@@ -1,6 +1,7 @@
 aria2
 build-essential
 clang
+expect
 git
 graphviz
 ifstat
