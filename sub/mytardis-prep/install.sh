@@ -12,7 +12,7 @@ git clone git://github.com/modc08/mytardis.git
 
 cd mytardis
 
-git checkout develop
+git checkout `cat $top/checkout.txt`
 
 sed -e "s/DEBUG = False/DEBUG = True/" \
     -e "s/Melbourne/Adelaide/" \
