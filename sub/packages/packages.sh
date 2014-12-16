@@ -11,7 +11,6 @@ sed s/VERSION/utopic/g < sources.list > /etc/apt/sources.list
 # misc
 
 apt-get update
-apt-get -y dist-upgrade
 apt-get -y install `cat packages.txt`
 
 # openstack
