@@ -17,6 +17,7 @@ pixz
 pv
 python-dev
 python-pip
+qemu-utils
 socat
 software-properties-common
 supervisor
