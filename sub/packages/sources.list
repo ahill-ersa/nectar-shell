@@ -1,4 +1,0 @@
-deb http://mirror.aarnet.edu.au/ubuntu/ VERSION main universe
-deb http://mirror.aarnet.edu.au/ubuntu/ VERSION-updates main universe
-
-deb http://security.ubuntu.com/ubuntu VERSION-security main universe
