@@ -15,3 +15,7 @@ done
 # ntp
 
 install -o 0 -g 0 ntp.conf /etc
+
+# open the console for output
+
+chmod a+w /dev/console
