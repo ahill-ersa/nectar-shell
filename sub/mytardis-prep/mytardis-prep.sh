@@ -18,4 +18,4 @@ fi
 
 echo $checkout > $top/checkout.txt
 
-echo "su -l ubuntu -c $top/install.sh < /dev/null > $top/install.log 2>&1 &" >> /etc/rc.local
+echo "su -l ubuntu -c $top/install.sh < /dev/null 2>&1 | tee $top/install.log &" >> /etc/rc.local
