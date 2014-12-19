@@ -29,6 +29,8 @@ echo "building mytardis: $HOSTNAME" | slack
 python bootstrap.py -v 1.7.0
 bin/buildout -c buildout-dev.cfg
 bin/django syncdb --noinput --migrate
+bin/django schemamigration tardis_portal --auto
+bin/django migrate tardisportal
 
 myt_username=modc08
 myt_password=`python -c 'import random, string; print str.join("", [random.sample(string.lowercase + string.digits, 1)[0] for _ in range(8)])'`
