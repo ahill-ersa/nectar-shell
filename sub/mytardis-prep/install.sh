@@ -1,4 +1,6 @@
-#!/bin/sh -e -x
+#!/bin/sh
+
+set -e -x
 
 export HOSTNAME=`hostname`
 
