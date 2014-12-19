@@ -4,8 +4,6 @@ export HOSTNAME=`hostname`
 
 top=/data/mytardis
 
-echo "commencing mytardis deployment: $HOSTNAME" | slack
-
 cd $top
 
 git clone git://github.com/modc08/mytardis.git
