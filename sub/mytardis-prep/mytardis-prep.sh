@@ -6,7 +6,7 @@ top=/$fs
 zfs create $fs
 chown ubuntu:ubuntu $top
 
-for script in install.sh mytardis-create-superuser ; do
+for script in install.sh install-wrapper.sh mytardis-create-superuser ; do
   install -o ubuntu -g ubuntu $script $top
 done
 
