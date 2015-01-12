@@ -36,4 +36,4 @@ $top/mytardis-create-superuser $myt_username $myt_password
 
 bin/django runserver 0.0.0.0:8080 < /dev/null > django.out 2>&1 &
 
-echo "mytardis: http://$HOSTNAME:8080 / username: $myt_username / password: $myt_password" | slack
+echo "mytardis: http://$HOSTNAME / username: $myt_username / password: $myt_password" | slack
