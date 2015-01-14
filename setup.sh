@@ -3,7 +3,7 @@
 export DEBIAN_FRONTEND=noninteractive
 
 top=$PWD
-for sub in packages ddns java misc slack ; do
+for sub in ddns misc slack ; do
     echo -- $sub --
     cd $top/sub/$sub
     ./$sub.sh
