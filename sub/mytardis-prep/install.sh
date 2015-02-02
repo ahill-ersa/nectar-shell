@@ -12,9 +12,7 @@ cd mytardis
 
 git checkout `cat $top/checkout.txt`
 
-sed -e "s/DEBUG = False/DEBUG = True/" \
-    -e "s/Melbourne/Adelaide/" \
-    < tardis/settings_changeme.py > tardis/settings.py
+wget -q -O - $MYTARDIS_SETTINGS_URL | openssl $MYTARDIS_SETTINGS_CIPHER -d -pass pass:$MYTARDIS_SETTINGS_PASS > tardis/settings.py
 
 cat > buildout-dev.cfg << EOF
 [buildout]
