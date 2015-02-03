@@ -12,7 +12,7 @@ cd mytardis
 
 git checkout `cat $top/checkout.txt`
 
-wget -q -O - $MYTARDIS_SETTINGS_URL | openssl $MYTARDIS_SETTINGS_CIPHER -d -pass pass:$MYTARDIS_SETTINGS_PASS > tardis/settings.py
+cp $top/settings.py tardis/settings.py
 
 cat > buildout-dev.cfg << EOF
 [buildout]
