@@ -36,7 +36,9 @@ if [ $? = 0 ]; then
         'URL': 'http://127.0.0.1:9200/',\n\
         'INDEX_NAME': 'haystack',\n\
     },\n\
-}" tardis/settings.py
+}\n\
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'\n\
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 40" tardis/settings.py
 fi
 
 cat > buildout-dev.cfg << EOF
