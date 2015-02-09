@@ -23,6 +23,7 @@ if [ $? = 0 ]; then
   sudo apt-get update && sudo apt-get install elasticsearch
   sudo update-rc.d elasticsearch defaults 95 10
   sudo /etc/init.d/elasticsearch start
+  sudo /usr/share/elasticsearch/bin/plugin -install royrusso/elasticsearch-HQ
 
   # update settings for new haystack
   sed -i 's/^SINGLE_SEARCH_ENABLED/SINGLE_SEARCH_ENABLED = True/' tardis/settings.py
