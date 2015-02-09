@@ -25,7 +25,7 @@ if [ $? = 0 ]; then
   sudo /etc/init.d/elasticsearch start
 
   # update settings for new haystack
-  sed -i '/^SINGLE_SEARCH_ENABLED/SINGLE_SEARCH_ENABLED = True/' tardis/settings.py
+  sed -i 's/^SINGLE_SEARCH_ENABLED/SINGLE_SEARCH_ENABLED = True/' tardis/settings.py
   sed -i '/^HAYSTACK_SITECONF/s/^/# /' tardis/settings.py
   sed -i '/^HAYSTACK_SEARCH_ENGINE/s/^/# /' tardis/settings.py
   sed -i '/^HAYSTACK_SOLR_URL/s/^/# /' tardis/settings.py
