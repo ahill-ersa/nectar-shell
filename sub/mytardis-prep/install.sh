@@ -14,8 +14,7 @@ git checkout `cat $top/checkout.txt`
 
 cp $top/settings.py tardis/settings.py
 
-need_search=`grep -ci search $top/checkout.txt`
-if [ $need_search = 1 ]; then
+if grep -q search $top/checkout.txt; then
   echo installing search engine...
   # install elasticsearch
   wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
