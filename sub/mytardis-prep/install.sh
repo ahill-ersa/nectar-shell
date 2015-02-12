@@ -66,5 +66,8 @@ myt_password=`python -c 'import random, string; print str.join("", [random.sampl
 $top/mytardis-create-superuser $myt_username $myt_password
 
 bin/django runserver 0.0.0.0:8080 < /dev/null > django.out 2>&1 &
-
+if grep -q search $top/checkout.txt; then
+  # build index
+  bin/django rebuild_index --noinput
+fi
 echo "mytardis: http://$HOSTNAME / username: $myt_username / password: $myt_password" | slack
