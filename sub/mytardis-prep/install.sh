@@ -42,8 +42,11 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'\n\
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 40" tardis/settings.py
 fi
 
-# Add tardis.apps.acad to Django INSTALLED_APPS
-sed -i "s/'tastypie',/'tastypie',\n    'tardis.apps.acad',/" tardis/settings.py
+# If it exists, add tardis.apps.acad to Django INSTALLED_APPS
+if [ -d tardis/apps/acad ]
+then
+    sed -i "s/'tastypie',/'tastypie',\n    'tardis.apps.acad',/" tardis/        >settings.py
+fi
 
 cat > buildout-dev.cfg << EOF
 [buildout]
