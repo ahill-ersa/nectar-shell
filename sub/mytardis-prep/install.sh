@@ -45,7 +45,7 @@ fi
 # If it exists, add tardis.apps.acad to Django INSTALLED_APPS
 if [ -d tardis/apps/acad ]
 then
-    sed -i "s/'tastypie',/'tastypie',\n    'tardis.apps.acad',/" tardis/        >settings.py
+    sed -i "s/'tastypie',/'tastypie',\n    'tardis.apps.acad',/" tardis/settings.py
 fi
 
 cat > buildout-dev.cfg << EOF
