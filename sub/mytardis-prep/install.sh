@@ -24,6 +24,7 @@ if grep -q search $top/checkout.txt; then
   sudo update-rc.d elasticsearch defaults 95 10
   sudo /etc/init.d/elasticsearch start
   sudo /usr/share/elasticsearch/bin/plugin -install royrusso/elasticsearch-HQ
+  sudo apt-get install libgeos-c1
 
   # update settings for new haystack
   sed -i '/^SINGLE_SEARCH_ENABLED/s/False/True/' tardis/settings.py
