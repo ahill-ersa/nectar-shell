@@ -71,7 +71,7 @@ myt_password=`cat $top/password.txt`
 $top/mytardis-create-superuser $myt_username $myt_password
 
 bin/django runserver 0.0.0.0:8080 < /dev/null > django.out 2>&1 &
-if grep -q search $top/checkout.txt; then
+if grep -q 'search\|frontend' $top/checkout.txt; then
   # build index
   bin/django rebuild_index --noinput
 fi
