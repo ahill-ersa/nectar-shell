@@ -27,6 +27,8 @@ if grep -q 'search\|frontend' $top/checkout.txt; then
   sudo apt-get -y install libgeos-c1
 
   # update settings for new haystack
+  sed -i '/^SITE_TITLE/s/None/"Ancient DNA"/' tardis/settings.py
+  sed -i '/^SPONSORED_TEXT/s/None/"Developed by University Library and eRSA"/' tardis/settings.py
   sed -i '/^SINGLE_SEARCH_ENABLED/s/False/True/' tardis/settings.py
   sed -i '/^HAYSTACK_SITECONF/s/^/# /' tardis/settings.py
   sed -i '/^HAYSTACK_SEARCH_ENGINE/s/^/# /' tardis/settings.py
@@ -41,7 +43,10 @@ if grep -q 'search\|frontend' $top/checkout.txt; then
 }\n\
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'\n\
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 40\n\
-SINGLE_SEARCH_VIEW = 'tardis.apps.acad.views.single_search'" tardis/settings.py
+SINGLE_SEARCH_VIEW = 'tardis.apps.acad.views.single_search'\n\
+NAVBAR_EXTRAS = {\n\
+  'Sources': 'tardis.apps.acad.views.source_index'\n\
+}" tardis/settings.py
 fi
 
 # If it exists, add tardis.apps.acad to Django INSTALLED_APPS
