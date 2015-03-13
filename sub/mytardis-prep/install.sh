@@ -14,7 +14,7 @@ git checkout `cat $top/checkout.txt`
 
 cp $top/settings.py tardis/settings.py
 
-if grep -q 'search\|frontend' $top/checkout.txt; then
+if grep -q 'search\|frontend\|modc08' $top/checkout.txt; then
   echo installing search engine...
   # install elasticsearch
   wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
@@ -75,8 +75,8 @@ myt_username=modc08
 myt_password=`cat $top/password.txt`
 $top/mytardis-create-superuser $myt_username $myt_password
 
-bin/django runserver 0.0.0.0:8080 < /dev/null > django.out 2>&1 &
-if grep -q 'search\|frontend' $top/checkout.txt; then
+HOSTNAME="`hostname`" bin/django runserver 0.0.0.0:8080 < /dev/null > django.out 2>&1 &
+if grep -q 'search\|frontend\|modc08' $top/checkout.txt; then
   # build index
   bin/django rebuild_index --noinput
 fi
