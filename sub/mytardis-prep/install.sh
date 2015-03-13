@@ -74,6 +74,7 @@ bin/django loaddata cc_licenses
 myt_username=modc08
 myt_password=`cat $top/password.txt`
 $top/mytardis-create-superuser $myt_username $myt_password
+bin/django runscript set_username
 
 HOSTNAME="`hostname`" bin/django runserver 0.0.0.0:8080 < /dev/null > django.out 2>&1 &
 if grep -q 'search\|frontend\|modc08' $top/checkout.txt; then
