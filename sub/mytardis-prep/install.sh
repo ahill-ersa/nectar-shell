@@ -58,6 +58,7 @@ fi
 sed -i '/^SITE_TITLE/s/None/"OAGR"\nSITE_LONGTITLE = "Online Ancient Genome Repository"/' tardis/settings.py
 sed -i '/^SPONSORED_TEXT/s/None/"Developed by University Library and eRSA"/' tardis/settings.py
 sed -i '/^TIME_ZONE/s/Melbourne/Adelaide/' tardis/settings.py
+sed -i '/^DEFAULT_INSTITUTION/s/Monash University/Australian Centre for Ancient DNA/' tardis/settings.py
 
 cat > buildout-dev.cfg << EOF
 [buildout]
