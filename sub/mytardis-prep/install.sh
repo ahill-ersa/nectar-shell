@@ -27,8 +27,6 @@ if grep -q 'search\|frontend\|modc08' $top/checkout.txt; then
   sudo apt-get -y install libgeos-c1
 
   # update settings for new haystack
-  sed -i '/^SITE_TITLE/s/None/"Ancient DNA"/' tardis/settings.py
-  sed -i '/^SPONSORED_TEXT/s/None/"Developed by University Library and eRSA"/' tardis/settings.py
   sed -i '/^SINGLE_SEARCH_ENABLED/s/False/True/' tardis/settings.py
   sed -i '/^HAYSTACK_SITECONF/s/^/# /' tardis/settings.py
   sed -i '/^HAYSTACK_SEARCH_ENGINE/s/^/# /' tardis/settings.py
@@ -55,6 +53,11 @@ if [ -d tardis/apps/acad ]
 then
     sed -i "s/'tastypie',/'tastypie',\n    'tardis.apps.acad',/" tardis/settings.py
 fi
+
+# Set site title and related stuff
+sed -i '/^SITE_TITLE/s/None/"OAGR"\nSITE_LONGTITLE = "Online Ancient Genome Repository"/' tardis/settings.py
+sed -i '/^SPONSORED_TEXT/s/None/"Developed by University Library and eRSA"/' tardis/settings.py
+sed -i '/^TIME_ZONE/s/Melbourne/Adelaide/' tardis/settings.py
 
 cat > buildout-dev.cfg << EOF
 [buildout]
