@@ -9,7 +9,8 @@ export PATH=/usr/local/bin:$PATH
 
 slack=/usr/local/bin/slack
 
-python -c "open('$slack', 'w').write(open('slack.template', 'r').read().replace('SLACK_WEBHOOK', '$SLACK_WEBHOOK'))"
+../../render.py < slack.template > $slack
+
 chmod a+rx $slack
 
 install slack.init /etc/init.d/slack
