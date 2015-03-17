@@ -9,7 +9,7 @@ export PATH=/usr/local/bin:$PATH
 
 slack=/usr/local/bin/slack
 
-../../render.py < slack.template > $slack
+../../render.py < slack > $slack
 
 chmod a+rx $slack
 
