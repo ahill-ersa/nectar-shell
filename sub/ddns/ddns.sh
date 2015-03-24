@@ -5,15 +5,11 @@ if [ -z "$DDNS_USERNAME" -o -z "$DDNS_TOKEN" -o -z "$DDNS_DOMAIN" ] ; then
   exit 0
 fi
 
-DDNS_HOSTNAME=`curl --silent http://169.254.169.254/latest/meta-data/hostname | cut -f1 -d.`
+export DDNS_HOSTNAME=`curl --silent http://169.254.169.254/latest/meta-data/hostname | cut -f1 -d.`
 
 ddns=/etc/cron.hourly/ddns
 
-sed -e s/DDNS_USERNAME/$DDNS_USERNAME/g \
-    -e s/DDNS_TOKEN/$DDNS_TOKEN/g \
-    -e s/DDNS_DOMAIN/$DDNS_DOMAIN/g \
-    -e s/DDNS_HOSTNAME/$DDNS_HOSTNAME/g \
-    < ddns.template > $ddns
+../../render.py < ddns > $ddns
 
 chmod 755 $ddns
 
@@ -23,3 +19,7 @@ for init in ddns ; do
     install $init.init /etc/init.d/$init
     update-rc.d $init defaults
 done
+
+# wait until the DNS catches up ...
+
+./wait.py
