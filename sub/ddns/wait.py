@@ -4,6 +4,7 @@
 
 import os
 import socket
+import sys
 import time
 
 def ok(name, max_wait = 5 * 60):
