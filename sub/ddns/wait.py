@@ -7,7 +7,7 @@ import socket
 import sys
 import time
 
-def ok(name, max_wait = 10 * 60):
+def ok(name, max_wait = 30 * 60):
     start = time.time()
 
     while time.time() <= (start + max_wait):

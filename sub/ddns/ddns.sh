@@ -9,7 +9,7 @@ export DDNS_HOSTNAME=`curl --silent http://169.254.169.254/latest/meta-data/host
 
 ### workaround for flaky resolvers
 ### remove when this (or at least a switch for this) is built into base image
-apt-get install bind9
+apt-get -y install bind9
 echo "nameserver 127.0.0.1" > /etc/resolv.conf
 echo "supersede domain-name-servers 127.0.0.1;" >> /etc/dhcp/dhclient.conf
 ###
