@@ -1,0 +1,13 @@
+diff --git django/db/models/fields/__init__.py django/db/models/fields/__init__.py
+index 9949dfa..ca673dd 100644
+--- django/db/models/fields/__init__.py
++++ django/db/models/fields/__init__.py
+@@ -277,7 +277,7 @@ class Field(object):
+         """
+         Returns field's value just before saving.
+         """
+-        return getattr(model_instance, self.attname)
++        return self.clean(getattr(model_instance, self.attname), model_instance)
+ 
+     def get_prep_value(self, value):
+         """

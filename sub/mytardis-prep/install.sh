@@ -81,6 +81,8 @@ myt_password=`cat $top/password.txt`
 $top/mytardis-create-superuser $myt_username $myt_password
 bin/django runscript set_username
 
+patch --strip 0 --directory eggs/Django-1.5.5-py2.7.egg < $top/validation.patch
+
 HOSTNAME="`hostname`" bin/django runserver 0.0.0.0:8080 < /dev/null > django.out 2>&1 &
 if grep -q 'search\|frontend\|modc08' $top/checkout.txt; then
   # build index
