@@ -70,7 +70,8 @@ EOF
 
 echo "building mytardis: $HOSTNAME" | slack
 
-python bootstrap.py -v 1.7.0
+python bootstrap.py
+#-v 1.7.0
 bin/buildout -c buildout-dev.cfg
 bin/django syncdb --noinput --migrate
 bin/django loaddata doi_schema
