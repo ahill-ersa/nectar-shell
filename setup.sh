@@ -5,7 +5,7 @@ export DEBIAN_FRONTEND=noninteractive
 export HOST=`hostname` HOSTNAME=`hostname`
 
 top=$PWD
-for sub in ddns misc slack mytardis-prep ; do
+for sub in ddns misc slack mytardis-prep store ; do
     echo -- $sub --
     cd $top/sub/$sub
     ./$sub.sh

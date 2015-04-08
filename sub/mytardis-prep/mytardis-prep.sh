@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 fs=data/mytardis
 top=/$fs
@@ -18,6 +18,8 @@ echo $MYTARDIS_PASSWORD > $top/password.txt
 
 cp validation.patch $top
 
-wget -q -O - $MYTARDIS_SETTINGS_URL | openssl $MYTARDIS_SETTINGS_CIPHER -d -pass pass:$MYTARDIS_SETTINGS_PASS > $top/settings.py
+#wget -q -O - $MYTARDIS_SETTINGS_URL | openssl $MYTARDIS_SETTINGS_CIPHER -d -pass pass:$MYTARDIS_SETTINGS_PASS > $top/settings.py
+SPECIAL_SETTINGS_URL=${MYTARDIS_SETTINGS_URL/settings.py.enc/settings_testing.py.enc}
+wget -q -O - $SPECIAL_SETTINGS_URL | openssl $MYTARDIS_SETTINGS_CIPHER -d -pass pass:$MYTARDIS_SETTINGS_PASS > $top/settings.py
 
 echo "su -l ubuntu -c $top/install-wrapper.sh < /dev/null 2>&1 | tee $top/install.log &" >> /etc/rc.local
