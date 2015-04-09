@@ -59,6 +59,26 @@ sed -i '/^SPONSORED_TEXT/s/None/"Developed by University Library and eRSA"/' tar
 sed -i '/^TIME_ZONE/s/Melbourne/Adelaide/' tardis/settings.py
 sed -i '/^DEFAULT_INSTITUTION/s/Monash University/Australian Centre for Ancient DNA/' tardis/settings.py
 
+# Set up database postgres
+sudo apt-get -y update
+sudo apt-get -y install python-psycopg2 postgresql
+
+# may rearrange to not to duplicate if we decide to use the same password for db user
+myt_password=`cat $top/password.txt`
+db_name=acad_tardis
+db_user=acad
+
+sudo -u postgres createdb -E utf8 $db_name
+sudo -u postgres psql -c "CREATE USER $db_user WITH ENCRYPTED PASSWORD '$myt_password'; GRANT ALL PRIVILEGES ON DATABASE $db_name TO $db_user;"
+
+cd /data/mytardis/mytardis
+# change setting with sed
+sed -i '/django.db.backends./s/sqlite3/postgresql_psycopg2/' tardis/settings.py
+sed -i "/'NAME': 'db.sqlite3'/s/db.sqlite3/$db_name/" tardis/settings.py
+sed -i "/'USER': 'postgres'/s/'postgres'/'$db_user'/" tardis/settings.py
+sed -i "/'PASSWORD': ''/s/''/'$myt_password'/" tardis/settings.py
+sed -i "/'HOST': ''/s/''/'localhost'/" tardis/settings.py
+
 cat > buildout-dev.cfg << EOF
 [buildout]
 extends = buildout.cfg
@@ -72,14 +92,17 @@ echo "building mytardis: $HOSTNAME" | slack
 python bootstrap.py
 #-v 1.7.0
 bin/buildout -c buildout-dev.cfg
-bin/django syncdb --noinput --migrate
-bin/django loaddata doi_schema
-bin/django loaddata cc_licenses
+bin/django syncdb --noinput
+bin/django migrate --no-initial-data
 
 myt_username=modc08
 myt_password=`cat $top/password.txt`
 $top/mytardis-create-superuser $myt_username $myt_password
 bin/django runscript set_username
+
+bin/django loaddata initial_data
+bin/django loaddata doi_schema
+bin/django loaddata cc_licenses
 
 patch --strip 0 --directory eggs/Django-1.5.5-py2.7.egg < $top/validation.patch
 
@@ -88,4 +111,4 @@ HOSTNAME="`hostname`" bin/django runserver 0.0.0.0:8080 < /dev/null > django.out
 # build index
 bin/django rebuild_index --noinput
 
-echo "mytardis: http://$HOSTNAME / username: $myt_username / password: $myt_password" | slack
+echo "mytardis: http://$HOSTNAME / username: $myt_username / password: $myt_password / database in Postgres created" | slack

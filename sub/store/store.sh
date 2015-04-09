@@ -13,10 +13,12 @@ cd $top
 version=db_backup
 curl --silent --location https://github.com/modc08/store/archive/$version.tar.gz | tar xzvf -
 mv "store-$version" store
-
+chown -R ubuntu:ubuntu store
 CONFIG_URL=${MYTARDIS_SETTINGS_URL/settings.py.enc/config.yaml.enc}
 wget -q -O - $CONFIG_URL | openssl $MYTARDIS_SETTINGS_CIPHER -d -pass pass:$MYTARDIS_SETTINGS_PASS > $top/store/config.yaml
 
+cd $top/store
+sudo -u ubuntu pip install -r requirements.txt -t lib
 ##NOT FINISHED with restoring data into database
 
 if [[ $RESTORE =~ ^[0-9]{8}_[0-9]{6}$ ]]; then
