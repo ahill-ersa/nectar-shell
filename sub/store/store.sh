@@ -23,16 +23,28 @@ sudo -u ubuntu pip install -r requirements.txt -t lib
 #Set up PYTHONPATH for scripts in store
 echo "export PYTHONPATH=$top/store/lib" >> /home/ubuntu/.profile
 
+# TODO: Currently, for instances of $RESTORE != none, the workflow is the same, so below can be simplified
 if [[ $RESTORE =~ [0-9]{8}_[0-9]{6} ]]; then
     echo "restore a version $RESTORE >> $top/install.log &" >> /etc/rc.local
-    echo "su -l ubuntu -c '$top/store/backup.py -c $top/store/config.yaml -a retrieve -n $RESTORE';gunzip -c /tmp/$RESTORE | sudo -u postgres psql $db_name" >> /etc/rc.local
+    dbrestore=$RESTORE
+    #echo "su -l ubuntu -c '$top/store/backup.py -c $top/store/config.yaml -a retrieve -n $RESTORE';gunzip -c /tmp/$RESTORE | sudo -u postgres psql $db_name" >> /etc/rc.local
 else
     if echo $RESTORE | grep -iwq 'latest' ; then
         echo "echo resotre latest >> $top/install.log &" >> /etc/rc.local
-        echo "su -l ubuntu -c '$top/store/backup.py -c $top/store/config.yaml -a retrieve -n latest';gunzip -c /tmp/$RESTORE | sudo -u postgres psql $db_name" >> /etc/rc.local
+        dbrestore=latest
+        #echo "su -l ubuntu -c '$top/store/backup.py -c $top/store/config.yaml -a retrieve -n latest';gunzip -c /tmp/$RESTORE | sudo -u postgres psql $db_name" >> /etc/rc.local
     else
         echo "echo fresh setup >> $top/install.log &" >> /etc/rc.local
     fi
+fi
+
+if [[ -n $dbrestore ]]; then
+    cat > $top/dbrestore.sh << EOF
+#!/bin/sh -e
+su -l ubuntu -c '$top/store/backup.py -c $top/store/config.yaml -a retrieve -n $dbrestore'
+gunzip -c /tmp/$dbrestore | sudo -u postgres psql $db_name
+EOF
+    chmod u+x $top/dbrestore.sh
 fi
 
 # cron jobs
