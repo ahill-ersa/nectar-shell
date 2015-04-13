@@ -41,9 +41,10 @@ fi
 if [[ -n $dbrestore ]]; then
     cat > $top/dbrestore.sh << EOF
 #!/bin/sh -e
-su -l ubuntu -c '$top/store/backup.py -c $top/store/config.yaml -a retrieve -n $dbrestore'
-gunzip -c /tmp/$dbrestore | sudo -u postgres psql $db_name
+$top/store/backup.py -c $top/store/config.yaml -a retrieve -n $dbrestore
+gunzip -c /tmp/$dbrestore | sudo -u postgres psql postgres
 EOF
+    chown ubuntu:ubuntu $top/dbrestore.sh
     chmod u+x $top/dbrestore.sh
 fi
 
@@ -54,7 +55,7 @@ chown ubuntu:ubuntu db_backup.sh
 chmod u+x db_backup.sh
 cat > backup.jobs << EOF
 30 */2  * * *   $top/store/db_backup.sh
-35 */2  * * *   $top/store/backup.py -c $top/store/config.yaml -a upload
+35 */2  * * *   export PYTHONPATH=$top/store/lib;$top/store/backup.py -c $top/store/config.yaml -a upload
 EOF
 # existing job will be removed?
 crontab -u ubuntu backup.jobs
