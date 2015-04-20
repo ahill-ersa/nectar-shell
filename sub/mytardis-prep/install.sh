@@ -59,6 +59,10 @@ sed -i '/^SPONSORED_TEXT/s/None/"Developed by University Library and eRSA"/' tar
 sed -i '/^TIME_ZONE/s/Melbourne/Adelaide/' tardis/settings.py
 sed -i '/^DEFAULT_INSTITUTION/s/Monash University/Australian Centre for Ancient DNA/' tardis/settings.py
 
+# Set up for production deployment
+sed -i '/^DEBUG/s/True/False/' tardis/settings.py
+sed -i '/^ALLOWED_HOSTS/s/*/.modc08.ersa.edu.au/' tardis/settings.py
+
 # Set up database postgres
 sudo apt-get -y update
 sudo apt-get -y install python-psycopg2 postgresql
@@ -106,7 +110,9 @@ bin/django loaddata cc_licenses
 
 patch --strip 0 --directory eggs/Django-1.5.5-py2.7.egg < $top/validation.patch
 
-HOSTNAME="`hostname`" bin/django runserver 0.0.0.0:8080 < /dev/null > django.out 2>&1 &
+bin/django collectstatic --noinput
+
+HOSTNAME="`hostname`" bin/gunicorn -c gunicorn_settings.py mytardis_wsgi --bind 0.0.0.0:8080 &
 
 # build index
 bin/django rebuild_index --noinput
