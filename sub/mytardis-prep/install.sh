@@ -61,7 +61,10 @@ sed -i '/^DEFAULT_INSTITUTION/s/Monash University/Australian Centre for Ancient 
 
 # Set up for production deployment
 sed -i '/^DEBUG/s/True/False/' tardis/settings.py
-sed -i '/^ALLOWED_HOSTS/s/*/.modc08.ersa.edu.au/' tardis/settings.py
+sed -i "/^ALLOWED_HOSTS/s/*/$HOSTNAME/" tardis/settings.py
+sed -i '/^SECRET_KEY/d' tardis/settings.py
+secretkey=`python2 -c "import random; print ''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789\!@#$%^&*(-_=+)') for i in range(50)])"`
+echo "SECRET_KEY = '$secretkey'" >> tardis/settings.py
 
 # Set up database postgres
 sudo apt-get -y update
