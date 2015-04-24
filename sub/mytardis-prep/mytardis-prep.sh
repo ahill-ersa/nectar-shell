@@ -11,6 +11,7 @@ for script in install.sh install-wrapper.sh mytardis-create-superuser ; do
 done
 
 cp -f nginx-default.conf /etc/nginx/sites-available/default
+cp -f nginx-elasticsearch.conf /etc/nginx/sites-available/elasticsearch
 htpasswd -bc /etc/nginx/.htpasswd modc08 $NGINX_PASSWORD
 
 echo $MYTARDIS_CHECKOUT > $top/checkout.txt
