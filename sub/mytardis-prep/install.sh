@@ -21,6 +21,7 @@ cp $top/settings.py tardis/settings.py
   sudo add-apt-repository "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main"
   sudo apt-get update && sudo apt-get install elasticsearch
   sudo sh -c "echo \"script.disable_dynamic: true\" >> /etc/elasticsearch/elasticsearch.yml"
+  sudo sed -i '/network.host/c\network.host:127.0.0.1' /etc/elasticsearch/elasticsearch.yml 
   sudo update-rc.d elasticsearch defaults 95 10
   sudo /etc/init.d/elasticsearch start
   sudo /usr/share/elasticsearch/bin/plugin -install royrusso/elasticsearch-HQ
