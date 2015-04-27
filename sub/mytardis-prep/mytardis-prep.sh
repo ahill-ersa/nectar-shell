@@ -12,6 +12,7 @@ done
 
 cp -f nginx-default.conf /etc/nginx/sites-available/default
 cp -f nginx-elasticsearch.conf /etc/nginx/sites-available/elasticsearch
+ln -s /etc/nginx/sites-available/elasticsearch /etc/nginx/sites-enabled/elasticsearch
 htpasswd -bc /etc/nginx/.htpasswd modc08 $NGINX_PASSWORD
 
 echo $MYTARDIS_CHECKOUT > $top/checkout.txt
