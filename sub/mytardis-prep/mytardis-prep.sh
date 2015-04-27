@@ -14,7 +14,7 @@ mv $installsh ${installsh}.back
 
 ../../render.py < installsh > $installsh
 
-chmod a+rx installsh
+chmod a+rx $installsh
 
 for script in install.sh install-wrapper.sh mytardis-create-superuser ; do
   install -o ubuntu -g ubuntu $script $top
@@ -31,6 +31,7 @@ echo $MYTARDIS_PASSWORD > $top/password.txt
 cp validation.patch $top
 
 #wget -q -O - $MYTARDIS_SETTINGS_URL | openssl $MYTARDIS_SETTINGS_CIPHER -d -pass pass:$MYTARDIS_SETTINGS_PASS > $top/settings.py
+#TODO: SPECIAL_SETTINGS_URL points to branch specified settings. Change back to above when all tests are done
 SPECIAL_SETTINGS_URL=${MYTARDIS_SETTINGS_URL/settings.py.enc/settings_cleaning.py.enc}
 wget -q -O - $SPECIAL_SETTINGS_URL | openssl $MYTARDIS_SETTINGS_CIPHER -d -pass pass:$MYTARDIS_SETTINGS_PASS > $top/settings.py
 
