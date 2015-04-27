@@ -15,17 +15,24 @@ git checkout {{ MYTARDIS_CHECKOUT }}
 cp $top/settings.py tardis/settings.py
 
 
-  echo installing search engine...
-  # install elasticsearch
-  wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
-  sudo add-apt-repository "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main"
-  sudo apt-get update && sudo apt-get install elasticsearch
-  sudo sh -c "echo \"script.disable_dynamic: true\" >> /etc/elasticsearch/elasticsearch.yml"
-  sudo update-rc.d elasticsearch defaults 95 10
-  sudo /etc/init.d/elasticsearch start
-  sudo /usr/share/elasticsearch/bin/plugin -install royrusso/elasticsearch-HQ
-  sudo apt-get -y install libgeos-c1
+echo installing search engine...
+# install elasticsearch
+wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
+sudo add-apt-repository "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main"
+sudo apt-get update && sudo apt-get install elasticsearch
+sudo sh -c "echo \"script.disable_dynamic: true\" >> /etc/elasticsearch/elasticsearch.yml"
+sudo sed -i '/network.host/c\network.host: 127.0.0.1' /etc/elasticsearch/elasticsearch.yml
+sudo update-rc.d elasticsearch defaults 95 10
+sudo /etc/init.d/elasticsearch start
+sudo /usr/share/elasticsearch/bin/plugin -install royrusso/elasticsearch-HQ
+sudo apt-get -y install libgeos-c1
 
+# Set up for production deployment
+sed -i '/^DEBUG/s/True/False/' tardis/settings.py
+sed -i "/^ALLOWED_HOSTS/s/*/$HOSTNAME/" tardis/settings.py
+sed -i '/^SECRET_KEY/d' tardis/settings.py
+secretkey=`python2 -c "import random; print ''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789\!@#$%^&*(-_=+)') for i in range(50)])"`
+echo "SECRET_KEY = '$secretkey'" >> tardis/settings.py
 
 # Set up database postgres
 sudo apt-get -y update
@@ -73,7 +80,9 @@ bin/django loaddata cc_licenses
 
 patch --strip 0 --directory eggs/Django-1.5.5-py2.7.egg < $top/validation.patch
 
-HOSTNAME="`hostname`" bin/django runserver 0.0.0.0:8080 < /dev/null > django.out 2>&1 &
+bin/django collectstatic --noinput
+
+HOSTNAME="`hostname`" bin/gunicorn -c gunicorn_settings.py mytardis_wsgi --bind 0.0.0.0:8080 &
 
 # build index
 bin/django rebuild_index --noinput
