@@ -14,7 +14,7 @@ git checkout `cat $top/checkout.txt`
 
 cp $top/settings.py tardis/settings.py
 
-if grep -q 'search\|frontend\|modc08' $top/checkout.txt; then
+#if grep -q 'search\|frontend\|modc08' $top/checkout.txt; then
   echo installing search engine...
   # install elasticsearch
   wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
@@ -46,7 +46,7 @@ NAVBAR_EXTRAS = {\n\
   'Sources': 'tardis.apps.acad.views.source_index',\n\
   'Search': 'tardis.apps.acad.views.search_source',\n\
 }" tardis/settings.py
-fi
+#fi
 
 # If it exists, add tardis.apps.acad to Django INSTALLED_APPS
 if [ -d tardis/apps/acad ]
@@ -85,8 +85,8 @@ bin/django runscript set_username
 patch --strip 0 --directory eggs/Django-1.5.5-py2.7.egg < $top/validation.patch
 
 HOSTNAME="`hostname`" bin/django runserver 0.0.0.0:8080 < /dev/null > django.out 2>&1 &
-if grep -q 'search\|frontend\|modc08' $top/checkout.txt; then
+#if grep -q 'search\|frontend\|modc08' $top/checkout.txt; then
   # build index
   bin/django rebuild_index --noinput
-fi
+#fi
 echo "mytardis: http://$HOSTNAME / username: $myt_username / password: $myt_password" | slack
