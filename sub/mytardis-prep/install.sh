@@ -44,7 +44,6 @@ HAYSTACK_SEARCH_RESULTS_PER_PAGE = 40\n\
 SINGLE_SEARCH_VIEW = 'tardis.apps.acad.views.single_search'\n\
 NAVBAR_EXTRAS = {\n\
   'Sources': 'tardis.apps.acad.views.source_index',\n\
-  'Search': 'tardis.apps.acad.views.search_source',\n\
 }" tardis/settings.py
 #fi
 
