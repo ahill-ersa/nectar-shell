@@ -43,7 +43,7 @@ cp $top/settings.py tardis/settings.py
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'\n\
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 40\n\
 SINGLE_SEARCH_VIEW = 'tardis.apps.acad.views.single_search'\n\
-ADVANCED_SEARCH_VIEW = 'tardis.apps.acad.view.search_source'\n\
+ADVANCED_SEARCH_VIEW = 'tardis.apps.acad.views.search_source'\n\
 NAVBAR_EXTRAS = {\n\
   'Sources': 'tardis.apps.acad.views.source_index',\n\
   'Search': 'tardis.apps.acad.views.search_source',\n\
