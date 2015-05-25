@@ -5,6 +5,10 @@
 apt-get update
 apt-get -y install python-psycopg2 postgresql
 
+# ubuntu user
+
+su -l postgres -c 'createuser --superuser ubuntu'
+
 # zfs
 
 service postgresql stop
