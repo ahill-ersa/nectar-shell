@@ -2,10 +2,12 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
-export HOST=`hostname` HOSTNAME=`hostname`
+export HOST=`hostname`.$DDNS_DOMAIN HOSTNAME=`hostname`.$DDNS_DOMAIN
+echo $HOST > /etc/hostname
+hostname --file /etc/hostname
 
 top=$PWD
-for sub in ddns misc slack mytardis-prep store ; do
+for sub in ddns misc slack postgresql nginx elasticsearch mytardis-prep store ; do
     echo -- $sub --
     cd $top/sub/$sub
     ./$sub.sh
