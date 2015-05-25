@@ -26,4 +26,7 @@ echo 'net.ipv6.conf.all.disable_ipv6=1' >> /etc/sysctl.conf
 
 # apt
 
-install -o 0 -g 0 sources.list /etc/apt
+env UBUNTU=`lsb_release --codename --short` ../../render.py < sources.list > /etc/apt/sources.list
+
+apt-get clean
+apt-get update
