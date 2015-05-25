@@ -14,6 +14,8 @@ script.disable_dynamic: true
 network.host: 127.0.0.1
 ES_EOF
 
+cp synonyms.txt /etc/elasticsearch/
+
 update-rc.d elasticsearch defaults 95 10
 service elasticsearch start
 
