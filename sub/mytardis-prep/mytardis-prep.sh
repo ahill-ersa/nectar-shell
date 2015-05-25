@@ -40,5 +40,3 @@ service elasticsearch start
 
 su -l ubuntu -c $top/boot.sh < /dev/null > $top/boot.log 2>&1 &
 EOF
-
-rm -f $top/env.json
