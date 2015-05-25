@@ -3,7 +3,7 @@
 # packages
 
 wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add -
-add-apt-repository "deb http://packages.elastic.co/elasticsearch/1.4/debian stable main"
+echo "deb http://packages.elastic.co/elasticsearch/1.4/debian stable main" >> /etc/apt/sources.list
 apt-get update
 apt-get -y install elasticsearch libgeos-c1
 

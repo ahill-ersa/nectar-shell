@@ -1,10 +1,5 @@
 #!/bin/bash -e
 
-if [ -z "$SLACK_WEBHOOK" ] ; then
-    echo "required environment: SLACK_WEBHOOK; skipping slack integration"
-    exit 0
-fi
-
 export PATH=/usr/local/bin:$PATH
 
 slack=/usr/local/bin/slack

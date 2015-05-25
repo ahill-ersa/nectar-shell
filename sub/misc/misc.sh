@@ -23,3 +23,7 @@ chmod a+w /dev/console
 # disable IPv6
 
 echo 'net.ipv6.conf.all.disable_ipv6=1' >> /etc/sysctl.conf
+
+# apt
+
+install -o 0 -g 0 sources.list /etc/apt

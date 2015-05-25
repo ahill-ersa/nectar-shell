@@ -24,7 +24,7 @@ extends = buildout.cfg
 settings = settings
 EOF
 
-echo "building mytardis: $HOSTNAME" | slack
+echo "$HOSTNAME: building oagr" | slack
 
 python bootstrap.py
 bin/buildout -c buildout-dev.cfg
