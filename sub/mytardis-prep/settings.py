@@ -204,7 +204,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_ACCESS_KEY_ID = base64.b64encode("{{ OAGR_S3_ID }}")
 AWS_SECRET_ACCESS_KEY = hashlib.md5("{{ OAGR_S3_SECRET }}").hexdigest()
 AWS_STORAGE_BUCKET_NAME = '{{ OAGR_S3_BUCKET }}'
-AWS_S3_HOST = '{{ OAGR_S3_ENDPOINT }}'
+AWS_S3_HOST = '{{ OAGR_S3_HOST }}'
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
