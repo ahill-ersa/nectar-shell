@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export HOST=`hostname` HOSTNAME=`hostname`
+
 top=/data/mytardis
 
 echo "launching oagr: $HOSTNAME" | slack
