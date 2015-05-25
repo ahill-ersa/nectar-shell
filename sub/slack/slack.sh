@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 if [ -z "$SLACK_WEBHOOK" ] ; then
     echo "required environment: SLACK_WEBHOOK; skipping slack integration"

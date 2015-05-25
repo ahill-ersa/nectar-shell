@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 fs=data/mytardis
 top=/$fs
@@ -6,18 +6,39 @@ top=/$fs
 zfs create $fs
 chown ubuntu:ubuntu $top
 
-for script in install.sh install-wrapper.sh mytardis-create-superuser ; do
+export OAGR_SECRET_KEY=`uuidgen`
+export OAGR_DB_PASSWORD=`uuidgen`
+
+for template in install.sh settings.py ; do
+    ../../render.py < $template > $top/$template
+done
+
+chmod a+rx $top/install.sh
+
+for script in boot.sh mytardis-create-superuser.exp ; do
   install -o ubuntu -g ubuntu $script $top
 done
 
-cp -f nginx-default.conf /etc/nginx/sites-available/default
-htpasswd -bc /etc/nginx/.htpasswd modc08 $NGINX_PASSWORD
+../../render.py < nginx.conf > /etc/nginx/sites-available/default
 
-echo $MYTARDIS_CHECKOUT > $top/checkout.txt
-echo $MYTARDIS_PASSWORD > $top/password.txt
+cp env-restore.py $top
+./env-save.py > $top/env.json
 
 cp validation.patch $top
 
-wget -q -O - $MYTARDIS_SETTINGS_URL | openssl $MYTARDIS_SETTINGS_CIPHER -d -pass pass:$MYTARDIS_SETTINGS_PASS > $top/settings.py
+su -l postgres << EOF
+createuser $OAGR_DB_USER
+createdb --owner $OAGR_DB_USER $OAGR_DB_NAME
+echo "alter user $OAGR_DB_USER with encrypted password '$OAGR_DB_PASSWORD'" | psql
+EOF
 
-echo "su -l ubuntu -c $top/install-wrapper.sh < /dev/null 2>&1 | tee $top/install.log &" >> /etc/rc.local
+su -l ubuntu -c $top/install.sh > $top/install.log 2>&1
+
+cat >> /etc/rc.local << EOF
+service postgresql start
+service elasticsearch start
+
+su -l ubuntu -c $top/boot.sh < /dev/null > $top/boot.log 2>&1 &
+EOF
+
+rm -f $top/env.json
