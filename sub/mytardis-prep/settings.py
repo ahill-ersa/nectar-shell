@@ -98,7 +98,7 @@ SITE_LONGTITLE = "Online Ancient Genome Repository"
 customise the title of your site
 '''
 
-SPONSORED_TEXT = "Developed by University Library and eRSA"
+SPONSORED_TEXT = None
 '''
 add text to the footer to acknowledge someone
 '''
