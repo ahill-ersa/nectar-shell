@@ -8,6 +8,7 @@ chown ubuntu:ubuntu $top
 
 export OAGR_SECRET_KEY=`uuidgen`
 export OAGR_DB_PASSWORD=`uuidgen`
+export OAGR_DOI_URL="https://$HOSTNAME"
 
 for template in install.sh settings.py ; do
     ../../render.py < $template > $top/$template
