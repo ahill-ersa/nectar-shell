@@ -7,7 +7,7 @@ echo $HOST > /etc/hostname
 hostname --file /etc/hostname
 
 top=$PWD
-for sub in ddns misc slack postgresql nginx elasticsearch mytardis-prep ; do
+for sub in ddns misc slack postgresql nginx elasticsearch mytardis-prep backups ; do
     echo -- $sub --
     cd $top/sub/$sub
     ./$sub.sh
