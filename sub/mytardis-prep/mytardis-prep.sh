@@ -16,7 +16,7 @@ done
 
 chmod a+rx $top/install.sh
 
-for script in boot.sh mytardis-create-superuser.exp ; do
+for script in boot.sh restore.py mytardis-create-superuser.exp ; do
   install -o ubuntu -g ubuntu $script $top
 done
 

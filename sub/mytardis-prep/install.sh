@@ -29,14 +29,22 @@ else
     patch --strip 0 --directory eggs/Django-1.5.5-py2.7.egg < $top/validation.patch
 fi
 
-bin/django syncdb --noinput
-bin/django migrate --no-initial-data
+if [ -n "{{ OAGR_RESTORE }}" ]; then
+    echo "$HOSTNAME: restoring {{ OAGR_RESTORE }}" | slack
 
-$top/mytardis-create-superuser.exp {{ OAGR_USERNAME }} {{ OAGR_PASSWORD }}
-bin/django runscript set_username
+    $top/restore.py | psql -d {{ OAGR_DB_NAME }}
+else
+    echo "$HOSTNAME: fresh install" | slack
 
-bin/django loaddata initial_data
-bin/django loaddata doi_schema
-bin/django loaddata cc_licenses
+    bin/django syncdb --noinput
+    bin/django migrate --no-initial-data
+
+    $top/mytardis-create-superuser.exp {{ OAGR_USERNAME }} {{ OAGR_PASSWORD }}
+    bin/django runscript set_username
+
+    bin/django loaddata initial_data
+    bin/django loaddata doi_schema
+    bin/django loaddata cc_licenses
+fi
 
 bin/django collectstatic --noinput
