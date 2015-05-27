@@ -32,7 +32,7 @@ fi
 if [ -n "{{ OAGR_RESTORE }}" ]; then
     echo "$HOSTNAME: restoring {{ OAGR_RESTORE }}" | slack
 
-    $top/restore.py | psql -d {{ OAGR_DB_NAME }}
+    (echo "set role {{ OAGR_DB_USER }};" ; $top/restore.py) | psql -d {{ OAGR_DB_NAME }}
 else
     echo "$HOSTNAME: fresh install" | slack
 
