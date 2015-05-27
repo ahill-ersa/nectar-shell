@@ -1,6 +1,8 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 export HOST=`hostname` HOSTNAME=`hostname`
+
+echo "$HOSTNAME: building oagr" | slack
 
 top=/data/mytardis
 
@@ -16,18 +18,17 @@ git checkout {{ OAGR_MYTARDIS_CHECKOUT }}
 
 cp $top/settings.py tardis/settings.py
 
-cat > buildout-dev.cfg << EOF
-[buildout]
-extends = buildout.cfg
+if [ -n "$OAGR_QUICK_INSTALL" ]; then
+    wget -q -O - $OAGR_QUICK_INSTALL | tar xJf -
+else
+    cp $top/buildout-dev.cfg .
 
-[django]
-settings = settings
-EOF
+    python bootstrap.py
+    bin/buildout -c buildout-dev.cfg
 
-echo "$HOSTNAME: building oagr" | slack
+    patch --strip 0 --directory eggs/Django-1.5.5-py2.7.egg < $top/validation.patch
+fi
 
-python bootstrap.py
-bin/buildout -c buildout-dev.cfg
 bin/django syncdb --noinput
 bin/django migrate --no-initial-data
 
@@ -37,7 +38,5 @@ bin/django runscript set_username
 bin/django loaddata initial_data
 bin/django loaddata doi_schema
 bin/django loaddata cc_licenses
-
-patch --strip 0 --directory eggs/Django-1.5.5-py2.7.egg < $top/validation.patch
 
 bin/django collectstatic --noinput

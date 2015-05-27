@@ -25,7 +25,7 @@ done
 cp env-restore.py $top
 ./env-save.py > $top/env.json
 
-cp validation.patch $top
+cp validation.patch buildout-dev.cfg $top
 
 su -l postgres << EOF
 createuser $OAGR_DB_USER
