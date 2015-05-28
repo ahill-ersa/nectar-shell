@@ -33,7 +33,7 @@ createdb --owner $OAGR_DB_USER $OAGR_DB_NAME
 echo "alter user $OAGR_DB_USER with encrypted password '$OAGR_DB_PASSWORD'" | psql
 EOF
 
-su -l ubuntu -c $top/install.sh > $top/install.log 2>&1
+su -l ubuntu -c $top/install.sh 2>&1 | tee $top/install.log
 
 cat >> /etc/rc.local << EOF
 service postgresql start
