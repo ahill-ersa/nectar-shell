@@ -6,4 +6,4 @@ cd $top
 
 eval `./env-restore.py < env.json`
 
-pg_dump --no-owner --no-privileges $OAGR_DB_NAME | $top/backup.py >> $top/backup.log 2>&1
+pg_dump --no-owner --no-privileges $OAGR_DB_NAME | xz | $top/backup.py >> $top/backup.log 2>&1
