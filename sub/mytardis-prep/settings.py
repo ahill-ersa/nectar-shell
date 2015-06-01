@@ -381,7 +381,7 @@ ELASTICSEARCH_INDEX_SETTINGS = {
                  "synonym_analyzer" : {
                      "type": "custom",
                      "tokenizer" : "standard",
-                     "filter" : ["synonym"]
+                     "filter" : ["synonym", "lowercase"]
                  },
                  "ngram_analyzer": {
                      "type": "custom",
