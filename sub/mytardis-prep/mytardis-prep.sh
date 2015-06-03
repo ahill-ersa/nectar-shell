@@ -28,7 +28,7 @@ cp env-restore.py $top
 cp validation.patch buildout-dev.cfg $top
 
 su -l postgres << EOF
-createuser $OAGR_DB_USER
+createuser --superuser $OAGR_DB_USER
 createdb --owner $OAGR_DB_USER $OAGR_DB_NAME
 echo "alter user $OAGR_DB_USER with encrypted password '$OAGR_DB_PASSWORD'" | psql
 EOF
