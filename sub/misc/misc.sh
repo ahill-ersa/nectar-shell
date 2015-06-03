@@ -30,3 +30,4 @@ env UBUNTU=`lsb_release --codename --short` ../../render.py < sources.list > /et
 
 apt-get clean
 apt-get update
+apt-get install sysv-rc-conf

@@ -26,4 +26,5 @@ cp -f pg_hba.conf /etc/postgresql/9.4/main
 
 # done
 
+sysv-rc-conf postgresql off
 service postgresql start

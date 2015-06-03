@@ -40,4 +40,5 @@ ln -s /$fs /var/lib/elasticsearch
 
 # done
 
+sysv-rc-conf elasticsearch off
 service elasticsearch start
