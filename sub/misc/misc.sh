@@ -31,3 +31,7 @@ env UBUNTU=`lsb_release --codename --short` ../../render.py < sources.list > /et
 apt-get clean
 apt-get update
 apt-get -y install sysv-rc-conf
+
+# temporary: ignore rc.local issues
+
+sed -i 's/set -e -x/set -x/' /etc/rc.local
