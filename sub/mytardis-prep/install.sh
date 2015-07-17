@@ -48,3 +48,7 @@ else
 fi
 
 bin/django collectstatic --noinput
+
+if [ -n "$GENOMEBROWSER_RESTORE" ]; then
+    wget -q -O - $GENOMEBROWSER_RESTORE | tar xjf - -C static
+fi  
