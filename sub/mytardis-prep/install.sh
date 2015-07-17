@@ -50,5 +50,6 @@ fi
 bin/django collectstatic --noinput
 
 if [ -n "$GENOMEBROWSER_RESTORE" ]; then
+    echo "$HOSTNAME: restoring genome browser files" | slack
     wget -q -O - $GENOMEBROWSER_RESTORE | tar xjf - -C static
-fi  
+fi
