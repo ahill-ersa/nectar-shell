@@ -1,6 +1,6 @@
 #!/bin/sh
 
-version=master
+version=ubuntu-repo-trial
 
 curl --silent --location https://github.com/modc08/nectar-shell/archive/$version.tar.gz | tar xzvf -
 
