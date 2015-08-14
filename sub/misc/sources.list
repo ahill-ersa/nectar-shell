@@ -1,4 +1,4 @@
-deb http://mirror.aarnet.edu.au/ubuntu {{ UBUNTU }} main universe
-deb http://mirror.aarnet.edu.au/ubuntu {{ UBUNTU }}-updates main universe
+deb http://au.archive.ubuntu.com/ubuntu {{ UBUNTU }} main universe
+deb http://au.archive.ubuntu.com/ubuntu {{ UBUNTU }}-updates main universe
 
 deb http://security.ubuntu.com/ubuntu {{ UBUNTU }}-security main universe
